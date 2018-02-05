@@ -61,4 +61,7 @@ module.exports = {
 
     CouponList: NewApiRootUrl + 'coupon/list', // 优惠券列表
     ExchangeCoupon: NewApiRootUrl + 'coupon/exchange', // 优惠券列表
+
+    WithDrawReq: NewApiRootUrl + 'wallet/withDraw', //提现申请
+    Recharge: NewApiRootUrl + 'wallet/recharge', //充值
 };

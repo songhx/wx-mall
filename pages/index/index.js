@@ -37,7 +37,7 @@ Page({
       {
         id: 4,
         name: '提现',
-        url: '/pages/ucenter/coupon/coupon',
+        url: '/pages/ucenter/withdraw/index',
         icon_url: '/static/images/htx.png',
         way:0,
       },
