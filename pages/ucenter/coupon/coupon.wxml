@@ -10,14 +10,16 @@
   <view class="coupon-list">
 
      <view class="item" wx:for="{{couponList}}" wx:key="{{item.id}}">
-      <!-- <view class="tag">新人专享</view> -->
+      <view class="tag" wx:if="{{item.send_type == 1 || item.send_type == 5 }}">普通礼品卡</view>
+      <view class="tag" wx:if="{{item.send_type == 3}}">商品礼品卡</view>
       <view class="content">
         <view class="left">
           <view class="name">{{item.name}}</view>
           <view class="time">{{item.use_start_date}} - {{item.use_end_date}}</view>
         </view>
         <view class="right">
-          <button class="go" bindtap='toUse'>去使用</button>
+          <button class="go" bindtap='toUse' wx:if="{{item.isUsed == 0}}">去使用</button>
+          <button class="go" data-userCouponId='{{item.userCouponId}}' data-couponId='{{item.id}}'  data-couponcodeId='{{item.couponCodeId}}' bindtap='discount' wx:if="{{item.isDiscount == 0 && item.isUsed == 0 }}">折现</button>
         </view>
       </view>
       <view class="condition" wx:if="{{item.useDesc != null}}">

@@ -82,6 +82,24 @@ Page({
     }
     
     //提现申请成功
-    
+    wx.showModal({
+      title: '',
+      content: '您确定要提现吗？',
+      success: function (res) {
+        if (res.confirm) {
+          util.request(api.WithDrawReq, {
+            money: amount
+          }, 'POST').then(function (res) {
+            if (res.errno === 0) {
+              wx.showToast({
+                title: "提现申请发送成功，请保持通信畅通，耐心等待平台为您发放现金！"
+              })
+            } else {
+              util.showErrorToast(res.errmsg);
+            }
+          });
+        }
+      }
+    })
   }
 })

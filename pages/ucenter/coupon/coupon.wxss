@@ -88,14 +88,14 @@ page{
   position: relative;
   height: 290rpx;
   width: 100%;
-  background: linear-gradient(to right,rgb(49, 166, 108),rgb(49, 166, 106));
+  background: linear-gradient(to right,rgb(255,215,0),rgb(255,215,0));
   margin-bottom: 30rpx;
   padding-top: 52rpx;
 }
 
 .tag{
   height: 32rpx;
-  background: #d95c78;
+  background: #C0C0C0;
   padding-left: 16rpx;
   padding-right: 16rpx;
   position: absolute;
@@ -123,7 +123,7 @@ page{
 
 .name{
   font-size: 26rpx;
-  color: #fff;
+  color: #666;
   margin-bottom: 14rpx;
 }
 
@@ -145,6 +145,7 @@ page{
   line-height: 48rpx;
   color: #b69150;
   font-size: 24rpx;
+  margin-bottom: 3px;
 }
 
 .condition{

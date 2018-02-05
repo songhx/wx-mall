@@ -78,4 +78,29 @@ Page({
       }
     });
   },
+  //折现
+  discount : function(e){
+    let that = this;
+    wx.showModal({
+      title: '',
+      content: '一旦折换不能转送和恢复成礼品卡！您确定要将此礼品卡折换成账户现金吗？',
+      success: function (res) {
+        if (res.confirm) {
+          util.request(api.UserDiscount, {
+            id: e.currentTarget.dataset.userCouponId,
+            coupon_id:e.currentTarget.dataset.couponId,
+            coupon_code_id: e.currentTarget.dataset.couponcodeId
+          }, 'POST').then(function (res) {
+            if (res.errno === 0) {
+              that.getCouponList();
+            } else {
+              util.showErrorToast(res.errmsg);
+            }
+          });
+        }
+      }
+    })
+   
+  
+  }
 })
