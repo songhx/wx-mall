@@ -20,12 +20,38 @@ Page({
   onShow: function () {
 
   },
-  onHide: function () {
-    // 页面隐藏
-
-  },
-  onUnload: function () {
-    // 页面关闭
+ 
+ //分享转赠
+  onShareAppMessage: function (res) {
+    if (res.from === 'button') {
+      wx.showModal({
+        title: '',
+        content: '您确定要将此礼品卡转送他人吗？',
+        success: function (res) {
+          if (res.confirm) {
+            ///转送开始
+            return {
+              title: '好礼-转送' + res.target.dataset.name + '礼品卡',
+              desc: '好礼专注礼品服务，送好礼上好礼！',
+              path: '/pages/ucenter/coupon/sendCoupon?id=' + res.target.dataset.usercouponid,
+              success: function (res) {
+                ///成功，修改用户优惠券转送状态
+                util.request(api.SendCoupon, {
+                  id: res.target.dataset.usercouponid
+                  }, 'POST').then(function (res) {
+                    if (res.errno === 0) {
+                    } else {
+                      util.showErrorToast(res.errmsg);
+                    }
+                  });
+              },
+              fail: function (res) {
+              }
+            }
+          }
+        }
+      })
+    }
   },
 
   ///去使用
@@ -33,6 +59,12 @@ Page({
     wx.switchTab({
       url: "/pages/index/index"
     }); 
+  },
+
+  clearCouponNumber :function(){
+    this.setData({
+      couponNumber: "",
+    })
   },
 
   //监听兑换码
@@ -87,9 +119,9 @@ Page({
       success: function (res) {
         if (res.confirm) {
           util.request(api.UserDiscount, {
-            id: e.currentTarget.dataset.userCouponId,
-            coupon_id:e.currentTarget.dataset.couponId,
-            coupon_code_id: e.currentTarget.dataset.couponcodeId
+            id: e.currentTarget.dataset.usercouponid,
+            coupon_id:e.currentTarget.dataset.couponid,
+            coupon_code_id: e.currentTarget.dataset.couponcodeid
           }, 'POST').then(function (res) {
             if (res.errno === 0) {
               that.getCouponList();

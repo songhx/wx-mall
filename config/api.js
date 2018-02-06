@@ -60,11 +60,16 @@ module.exports = {
     FootprintDelete: NewApiRootUrl + 'footprint/delete',  //删除足迹
 
     CouponList: NewApiRootUrl + 'coupon/list', // 优惠券列表
-    ExchangeCoupon: NewApiRootUrl + 'coupon/exchange', // 优惠券列表
+    CouponInfo: NewApiRootUrl + 'coupon/info', // 优惠券
+    SendCoupon: NewApiRootUrl + 'coupon/send', // 转送优惠券
+    ReceiveCoupon: NewApiRootUrl + 'coupon/receive', // 接收优惠券
+    ExchangeCoupon: NewApiRootUrl + 'coupon/exchange', // 兑换
+    
 
+    UserWallet: NewApiRootUrl + 'wallet/userWallet', //用户钱包信息
     WithDrawReq: NewApiRootUrl + 'wallet/withDraw', //提现申请
     WithDrawHistory: NewApiRootUrl + 'wallet/withDrawList', //提现申请
     Recharge: NewApiRootUrl + 'wallet/recharge', //充值
-    UserDiscount: NewApiRootUrl + + 'wallet/discount', //折现
+    UserDiscount: NewApiRootUrl +  'wallet/discount', //折现
 
 };

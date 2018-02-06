@@ -14,6 +14,7 @@
     "pages/ucenter/withdraw/index",
     "pages/ucenter/feedback/feedback",
     "pages/ucenter/coupon/coupon",
+    "pages/ucenter/coupon/sendCoupon",
     "pages/ucenter/collect/collect",
     "pages/auth/login/login",
     "pages/auth/register/register",

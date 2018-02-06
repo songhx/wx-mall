@@ -34,6 +34,6 @@
     border-bottom: 1px solid #eee;
     height: 100rpx;
     line-height: 100rpx;
-    padding-left: 52rpx;
+    padding-left: 39rpx;
 }
 

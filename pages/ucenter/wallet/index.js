@@ -15,6 +15,8 @@ Page({
     let userInfo = wx.getStorageSync('userInfo');
     let token = wx.getStorageSync('token');
 
+    this.queryUserWallet();//查询用户钱包信息
+
     // 页面显示
     if (userInfo && token) {
       app.globalData.userInfo = userInfo;
@@ -27,8 +29,18 @@ Page({
     
   },	
   
-
-
+  //查询用户钱包信息
+  queryUserWallet: function(){
+    let that = this;
+    util.request(api.UserWallet).then(function (res) {
+      if (res.errno === 0) {
+        that.setData({
+          balance: res.data.balance,
+          freeze: res.data.freeze,
+        });
+      }
+    });
+  },
 
   recharge: function () {
     util.showErrorToast("功能暂未开放！");

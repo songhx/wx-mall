@@ -7,14 +7,14 @@ Page({
    * 页面的初始数据
    */
   data: {
-  
+    amount: 0.00,
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-  
+    
   },
 
   /**
@@ -65,12 +65,20 @@ Page({
   onShareAppMessage: function () {
   
   },
+  //监听
+  listenerAmount: function (e) {
+    var _this = this;
+    this.setData({
+      amount: e.detail.value,
+    })
+  },
+
   bindCancel: function () {
     wx.navigateBack({})
   },
   bindSave: function (e) {
     var that = this;
-    var amount = e.detail.value.amount;
+    var amount = that.data.amount;
 
     if (amount == "" || amount * 1 < 100) {
       wx.showModal({
@@ -91,6 +99,9 @@ Page({
             money: amount
           }, 'POST').then(function (res) {
             if (res.errno === 0) {
+              this.setData({
+                amount: 0.00,
+              })
               wx.showToast({
                 title: "提现申请发送成功，请保持通信畅通，耐心等待平台为您发放现金！"
               })
