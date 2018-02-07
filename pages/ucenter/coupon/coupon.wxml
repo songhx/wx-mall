@@ -1,12 +1,32 @@
 <view class="container">
   <view class="coupon-form">
     <view class="input-box">
-      <input class="coupon-sn" placeholder="请输入兑换码" bindinput='listenerCouponNumber' />
+      <input class="coupon-sn" placeholder="请输入兑换码" value='{{couponNumber}}' bindinput='listenerCouponNumber' />
       <image bindtap='clearCouponNumber' class="clear-icon" src="http://yanxuan.nosdn.127.net/hxm/yanxuan-wap/p/20161201/style/img/icon-normal/clear-fb-dd9d604f86.png"></image>
     </view>
     <button class="add-btn" bindtap='exchangeCoupon'>兑换</button>
   </view>
-  <view class="help">使用说明</view>
+   <view class="help-tips" bindtap="showHelp">使用说明</view>
+   <view class="help" id="help" wx:if="{{help_status}}" bindtap="tapHelp">
+        <view class="box">
+          <view class="box-hd">
+            <text class="box-title">使用说明</text>
+            <image class="box-close" src="/static/images/close.png" bindtap="hideHelp"></image>
+          </view>
+          <view class="box-bd">
+            <view class="help-q">1、关于礼品卡兑换？</view>
+            <view class="help-a">
+              <text>礼品卡一旦兑换成功可以用于购买礼品</text>
+              <text>礼品卡可以折换成现金，折换比率由“好礼平台制订”，现金 = 礼品卡价值 * 折换率</text>
+              <text>礼品卡可以转送给好友</text>
+            </view>
+            <view class="help-q">2、关于礼品卡折换成现金？</view>
+            <view class="help-a">
+              <text>礼品卡折换现金后存入账户余额，可以提现，但是不能换成礼品卡，请谨慎操作折现。所有解释权归“好礼平台”</text>
+            </view>
+          </view>
+        </view>
+  </view>
   <view class="coupon-list">
 
      <view class="item" wx:for="{{couponList}}" wx:key="{{item.id}}">

@@ -7,18 +7,19 @@ var app = getApp();
 
 Page({
   data: {
+    help_status: false,
     couponNumber:"",
     couponList : [] , //用户优惠券列表
   },
   onLoad: function (options) {
-    let that = this;
-    that.getCouponList();
+
   },
   onReady: function () {
 
   },
   onShow: function () {
-
+    let that = this;
+    that.getCouponList();
   },
  
  //分享转赠
@@ -127,5 +128,20 @@ Page({
     })
    
   
+  },
+  tapHelp: function (e) {
+    if (e.target.id == 'help') {
+      this.hideHelp();
+    }
+  },
+  showHelp: function (e) {
+    this.setData({
+      'help_status': true
+    });
+  },
+  hideHelp: function (e) {
+    this.setData({
+      'help_status': false
+    });
   }
 })
