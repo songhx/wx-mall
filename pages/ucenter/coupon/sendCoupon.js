@@ -9,6 +9,10 @@ Page({
   data: {
     id:null,
     coupon: {}, //用户优惠券
+    promptHide : true,
+    title : '领取礼品卡提示',
+    text :'',
+    icon: '/static/images/iconfont-empty.png',
   },
   onLoad: function (options) {
     let that = this;
@@ -25,7 +29,12 @@ Page({
 
   },
 
-
+  goHome: function(){
+    wx.switchTab({
+      url: '/pages/index/index',
+    })
+  },
+  //接受卡券
   receiveCoupon: function () {
     let that = this;
 
@@ -34,16 +43,22 @@ Page({
       return false;
     }
     util.request(api.ReceiveCoupon, {
-      coupon_number: that.data.couponNumber
+      id: that.data.id
     }, 'POST').then(function (res) {
       if (res.errno === 0) {
-        //跳转用户卡券页
-        wx.navigateTo({
-          url: '/pages/ucenter/coupon/coupon'
-        })
+        //领取成功
+        that.setData({
+          promptHide: false,
+          icon: '/static/images/iconfont-order.png',
+          text: '恭喜您领取礼品卡成功',
+        });
 
       } else {
-        util.showErrorToast(res.errmsg);
+        //领取失败
+        that.setData({
+          promptHide: false,
+          text: res.errmsg,
+        });
       }
     });
   },
@@ -56,9 +71,14 @@ Page({
     }, 'POST').then(function (res) {
       if (res.errno === 0) {
         that.setData({
+          promptHide:true,
           coupon: res.data
         });
       }else{
+        that.setData({
+          promptHide: false,
+          text: res.errmsg,
+        });
       }
     });
   }

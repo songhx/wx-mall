@@ -7,7 +7,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    amount: 0.00,
+    amount: '',
   },
 
   /**
@@ -99,8 +99,8 @@ Page({
             money: amount
           }, 'POST').then(function (res) {
             if (res.errno === 0) {
-              this.setData({
-                amount: 0.00,
+              that.setData({
+                amount: '',
               })
               wx.showToast({
                 title: "提现申请发送成功，请保持通信畅通，耐心等待平台为您发放现金！"

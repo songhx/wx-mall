@@ -24,33 +24,26 @@ Page({
  //分享转赠
   onShareAppMessage: function (res) {
     if (res.from === 'button') {
-      wx.showModal({
-        title: '',
-        content: '您确定要将此礼品卡转送他人吗？',
-        success: function (res) {
-          if (res.confirm) {
-            ///转送开始
-            return {
-              title: '好礼-转送' + res.target.dataset.name + '礼品卡',
-              desc: '好礼专注礼品服务，送好礼上好礼！',
-              path: '/pages/ucenter/coupon/sendCoupon?id=' + res.target.dataset.usercouponid,
-              success: function (res) {
-                ///成功，修改用户优惠券转送状态
-                util.request(api.SendCoupon, {
-                  id: res.target.dataset.usercouponid
-                  }, 'POST').then(function (res) {
-                    if (res.errno === 0) {
-                    } else {
-                      util.showErrorToast(res.errmsg);
-                    }
-                  });
-              },
-              fail: function (res) {
-              }
+      ///转送开始
+      return {
+        title: '好礼-转送' + res.target.dataset.name + '礼品卡',
+        desc: '好礼专注礼品服务，送好礼上好礼！',
+        path: '/pages/ucenter/coupon/sendCoupon?id=' + res.target.dataset.usercouponid,
+        success: function (rss) {
+          ///成功，修改用户优惠券转送状态
+          util.request(api.SendCoupon, {
+            id: res.target.dataset.usercouponid
+          }, 'POST').then(function (r) {
+            if (r.errno === 0) {
+            } else {
+              util.showErrorToast(r.errmsg);
             }
-          }
+          });
+        },
+        fail: function (rr) {
+          console.log(rr);
         }
-      })
+      }
     }
   },
 

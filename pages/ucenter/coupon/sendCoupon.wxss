@@ -1,0 +1,185 @@
+page{
+    background: #f4f4f4;
+    min-height: 100%;
+}
+
+.container{
+    background: #f4f4f4;
+    min-height: 100%;
+    padding-top: 30rpx;
+}
+
+.coupon-form{
+  height: 110rpx;
+  width: 100%;
+  background: #fff;
+  padding-left: 30rpx;
+  padding-right: 30rpx;
+  padding-top: 20rpx;
+  display: flex;
+}
+
+.input-box{
+  flex: 1;
+  height: 70rpx;
+  color: #333;
+  font-size: 24rpx;
+  background: #fff;
+  position: relative;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  border-radius: 4rpx;
+  margin-right: 30rpx;
+}
+
+
+.coupon-list{
+  width: 100%;
+  height: auto;
+  overflow: hidden;
+  padding-left: 30rpx;
+  padding-right: 30rpx;
+}
+
+.item{
+  position: relative;
+  height: 290rpx;
+  width: 100%;
+  background: linear-gradient(to right,#fa709a,#fee140);
+  margin-bottom: 30rpx;
+  padding-top: 52rpx;
+}
+
+.tag{
+  height: 32rpx;
+  background: #C0C0C0;
+  padding-left: 16rpx;
+  padding-right: 16rpx;
+  position: absolute;
+  left: 20rpx;
+  color: #fff;
+  top: 20rpx;
+  font-size: 20rpx;
+  text-align: center;
+  line-height: 32rpx;
+}
+
+
+.content{
+  margin-top: 24rpx;
+  margin-left: 40rpx;
+  display: flex;
+  margin-right: 40rpx;
+  flex-direction: row;
+  align-items: center;
+}
+
+.content .left{
+  flex: 1;
+}
+
+.name{
+  font-size: 26rpx;
+  color: #666;
+  margin-bottom: 14rpx;
+}
+
+.time{
+  font-size: 24rpx;
+  color: rgba(255,255,255, 0.8);
+  line-height: 30rpx;
+}
+
+.content .right{
+  width: 162rpx;
+}
+
+.go{
+  height: 48rpx;
+  border:none;
+  width: 162rpx;
+  background: rgba(255,255,255, 0.8);
+  line-height: 48rpx;
+  color: #b69150;
+  font-size: 24rpx;
+  margin-bottom: 3px;
+}
+
+
+
+.condition{
+  position: absolute;
+  width: 100%;
+  bottom: 0;
+  left:0;
+  height: 78rpx;
+  background: rgba(0,0,0,.08);
+  padding: 24rpx 40rpx;
+  display: flex;
+  flex-direction: row;
+}
+
+.condition .txt{
+  display: block;
+  height: 30rpx;
+  flex: 1;
+  overflow: hidden;
+  font-size: 24rpx;
+  line-height: 30rpx;
+  color: #fff;
+}
+
+
+.condition .icon{
+  margin-left: 30rpx;
+  width: 24rpx;
+  height: 24rpx;
+}
+
+
+
+.prompt-container {
+    display: flex;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+    color: #939393;
+    background-color: #f2f3f4;
+}
+
+.prompt-message {
+    margin-top: 0;
+    text-align: center;
+}
+
+.prompt-message .prompt-icon {
+    width: 64px;
+    height: 64px;
+}
+
+.prompt-message .prompt-title {
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+    margin: 2px 0;
+}
+
+.prompt-message .prompt-text {
+    font-size: 12px;
+    margin: 2px 0;
+}
+
+.prompt-message .prompt-button-area .prompt-button {
+    font-size: 13px;
+    line-height: 2;
+}
+
+.prompt-message .prompt-button-area .prompt-button {
+    margin: 4px auto;
+    width: 100px;
+    padding: 2px 0;
+    border: 1px solid #eee;
+}
+
+.prompt-message .prompt-button-area .prompt-button:after {
+    display: none;
+}
