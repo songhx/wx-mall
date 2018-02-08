@@ -16,7 +16,10 @@ Page({
     orderTotalPrice: 0.00,  //订单总价
     actualPrice: 0.00,     //实际需要支付的总价
     addressId: 0,
-    couponId: 0
+    couponId: 0,
+    wxPaySelected:false, // 微信支付
+    balancePaySelected : false, //账户余额支付
+    couponPaySelected : false, //卡券支付
   },
   onLoad: function (options) {
 
@@ -36,12 +39,58 @@ Page({
           'couponId': couponId
         });
       }
+      
+      var wxPaySelected = wx.getStorageSync('wxPaySelected');
+      if (wxPaySelected != null) {
+        this.setData({
+          'wxPaySelected': wxPaySelected
+        });
+      }
+
+      var balancePaySelected = wx.getStorageSync('balancePaySelected');
+      if (balancePaySelected != null) {
+        this.setData({
+          'balancePaySelected': balancePaySelected
+        });
+      }
+
+      var couponPaySelected = wx.getStorageSync('couponPaySelected');
+      if (couponPaySelected != null) {
+        this.setData({
+          'couponPaySelected': couponPaySelected
+        });
+      }
+
     } catch (e) {
       // Do something when catch error
     }
 
 
   },
+
+  //切换支付方式
+  switchPayWay:function(e){
+    let that = this;
+    var way = e.currentTarget.dataset.way;
+    //console.log("way---" + way);
+    if(way == 1){
+      that.setData({
+        balancePaySelected: !that.data.balancePaySelected,
+      });
+      wx.setStorageSync('balancePaySelected', that.data.balancePaySelected);
+    } else if (way == 2) {
+      that.setData({
+        wxPaySelected: !that.data.wxPaySelected,
+      });
+      wx.setStorageSync('wxPaySelected', that.data.wxPaySelected);
+    } else if (way == 3) {
+      that.setData({
+        couponPaySelected: !that.data.couponPaySelected,
+      });
+      wx.setStorageSync('couponPaySelected', that.data.couponPaySelected);
+    }
+  },
+
   getCheckoutInfo: function () {
     let that = this;
     util.request(api.CartCheckout, { addressId: that.data.addressId, couponId: that.data.couponId }).then(function (res) {
@@ -61,6 +110,15 @@ Page({
       }
       wx.hideLoading();
     });
+  },
+  
+  selectCoupons() {
+    let that = this;
+    if (that.data.couponList.length > 0){
+      wx.navigateTo({
+        url: '/pages/shopping/coupon/coupon',
+      })
+    }
   },
   selectAddress() {
     wx.navigateTo({

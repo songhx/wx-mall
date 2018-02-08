@@ -37,6 +37,11 @@ Page({
     // 页面关闭
 
   },
+  goHome: function () {
+    wx.switchTab({
+      url: '/pages/index/index',
+    })
+  },
   getCartList: function () {
     let that = this;
     util.request(api.CartList).then(function (res) {
@@ -237,7 +242,7 @@ Page({
     //获取已选择的商品
     let that = this;
 
-    let productIds = this.data.cartGoods.filter(function (element, index, array) {
+    let cartIds = this.data.cartGoods.filter(function (element, index, array) {
       if (element.checked == true) {
         return true;
       } else {
@@ -245,37 +250,48 @@ Page({
       }
     });
 
-    if (productIds.length <= 0) {
+    if (cartIds.length <= 0) {
+      util.showErrorToast("请选择删除项！");
       return false;
     }
 
-    productIds = productIds.map(function (element, index, array) {
+    cartIds = cartIds.map(function (element, index, array) {
       if (element.checked == true) {
-        return element.product_id;
+        return element.id;
       }
     });
 
 
-    util.request(api.CartDelete, {
-      productIds: productIds.join(',')
-    }, 'POST').then(function (res) {
-      if (res.errno === 0) {
-        console.log(res.data);
-        let cartList = res.data.cartList.map(v => {
-          console.log(v);
-          v.checked = false;
-          return v;
-        });
+    wx.showModal({
+      title: '',
+      content: '您确定要删除选中的礼品吗？',
+      success: function (res) {
+        if (res.confirm) {
+          util.request(api.CartDelete, {
+            cartIds: cartIds.join(',')
+          }, 'POST').then(function (res) {
+            if (res.errno === 0) {
+              console.log(res.data);
+              let cartList = res.data.cartList.map(v => {
+                console.log(v);
+                v.checked = false;
+                return v;
+              });
 
-        that.setData({
-          cartGoods: cartList,
-          cartTotal: res.data.cartTotal
-        });
+              that.setData({
+                cartGoods: cartList,
+                cartTotal: res.data.cartTotal
+              });
+            } else {
+              util.showErrorToast("删除失败！");
+            }
+
+            that.setData({
+              checkedAllStatus: that.isCheckedAll()
+            });
+          });
+        }
       }
-
-      that.setData({
-        checkedAllStatus: that.isCheckedAll()
-      });
-    });
+    })
   }
 })
