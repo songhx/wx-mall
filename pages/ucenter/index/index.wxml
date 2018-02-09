@@ -69,7 +69,7 @@
       </navigator>
     </view> -->
     <view class="item ">
-      <navigator url="url" class="a">
+      <navigator url="/pages/ucenter/questions/questions" class="a">
         <text class="icon help"></text>
         <text class="txt">帮助中心</text>
       </navigator>

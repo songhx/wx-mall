@@ -217,6 +217,7 @@ Page({
   },
   getCheckedProductItem: function (key) {
     return this.data.productList.filter(function (v) {
+      if(key == "") key = null;
       if (v.goods_specification_ids == key) {
         return true;
       } else {

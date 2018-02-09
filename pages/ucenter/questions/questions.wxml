@@ -1,0 +1,36 @@
+<view class="container">
+  
+  <view class="item-list">
+   <view class="q-title">一般常见问题</view>
+   <view class="item" wx:for="{{basickQs}}" wx:key="item">
+        <view class="item-btn" bindtap="toggleItem" data-type="basic" data-index="{{index}}">
+          <text class="btn-text">{{item.title}}</text>
+          <view class="btn-open">
+              <image wx:if="{{item.isExpanded}}" class="btn-enter" src="/static/images/upper.png"></image>
+               <image wx:else class="btn-enter" src="/static/images/down.png"></image>
+          </view>
+        </view>
+        <view class="item-content {{item.isExpanded ? 'show' : 'hide'}}" >
+              <view class="content">{{item.contents}}</view>
+        </view>
+    </view>
+  </view>
+
+   <view class="item-list">
+   <view class="q-title">售后相关问题</view>
+   <view class="item" wx:for="{{servantQs}}" wx:key="item">
+        <view class="item-btn" bindtap="toggleItem" data-type="servant" data-index="{{index}}">
+          <text class="btn-text">{{item.title}}</text>
+          <view class="btn-open">
+              <image wx:if="{{item.isExpanded}}" class="btn-enter" src="/static/images/upper.png"></image>
+               <image wx:else class="btn-enter" src="/static/images/down.png"></image>
+          </view>
+        </view>
+        <view class="item-content {{item.isExpanded ? 'show' : 'hide'}}" >
+              <view class="content">{{item.contents}}</view>
+        </view>
+    </view>
+  </view>
+ 
+
+</view>
