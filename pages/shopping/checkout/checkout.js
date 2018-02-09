@@ -76,24 +76,27 @@ Page({
     if(way == 1){
       that.setData({
         balancePaySelected: !that.data.balancePaySelected,
+        wxPaySelected: (!that.data.balancePaySelected) ? false: that.data.wxPaySelected,
       });
-      wx.setStorageSync('balancePaySelected', that.data.balancePaySelected);
     } else if (way == 2) {
       that.setData({
         wxPaySelected: !that.data.wxPaySelected,
+        balancePaySelected: (!that.data.wxPaySelected) ? false : that.data.balancePaySelected ,
       });
-      wx.setStorageSync('wxPaySelected', that.data.wxPaySelected);
     } else if (way == 3) {
       that.setData({
         couponPaySelected: !that.data.couponPaySelected,
       });
-      wx.setStorageSync('couponPaySelected', that.data.couponPaySelected);
+      
     }
+    wx.setStorageSync('balancePaySelected', that.data.balancePaySelected);
+    wx.setStorageSync('wxPaySelected', that.data.wxPaySelected);
+    wx.setStorageSync('couponPaySelected', that.data.couponPaySelected);
   },
 
   getCheckoutInfo: function () {
     let that = this;
-    util.request(api.CartCheckout, { addressId: that.data.addressId, couponId: that.data.couponId }).then(function (res) {
+    util.request(api.CartCheckout, { addressId: that.data.addressId, userCouponId: that.data.couponId }).then(function (res) {
       if (res.errno === 0) {
         console.log(res.data);
         that.setData({
@@ -151,12 +154,24 @@ Page({
 
   },
   submitOrder: function () {
+    let that = this;
     if (this.data.addressId <= 0) {
       util.showErrorToast('请选择收货地址');
       return false;
     }
-    util.request(api.OrderSubmit, { addressId: this.data.addressId, couponId: this.data.couponId }, 'POST').then(res => {
+    if (that.data.balancePaySelected && that.data.wxPaySelected && that.data.couponPaySelected ) {
+      util.showErrorToast('请选择支付方式');
+      return false;
+    }
+    var payWays = that.getPayWays();
+    util.request(api.OrderSubmit, { 
+          addressId: this.data.addressId,
+          userCouponId: this.data.couponId, 
+          payWays: payWays, 
+          freightPrice: that.data.freightPrice
+       }, 'POST').then(res => {
       if (res.errno === 0) {
+        that.clearSession();//清除
         const orderId = res.data.orderInfo.id;
         pay.payOrder(parseInt(orderId)).then(res => {
           wx.redirectTo({
@@ -171,5 +186,25 @@ Page({
         util.showErrorToast('下单失败');
       }
     });
+  },
+  //获取支付方式
+  getPayWays :function(){
+    var ways = [];
+    let that = this;
+    if (that.data.balancePaySelected) {
+      ways.push(1);
+    } else if (that.data.wxPaySelected ) {
+      ways.push(2);
+    } else if (that.data.couponPaySelected) {
+      ways.push(3);
+    }
+    return ways.join(",");
+  },
+  //清除数据缓存
+  clearSession : function(){
+    wx.setStorageSync('couponId', null);
+    wx.setStorageSync('balancePaySelected', null);
+    wx.setStorageSync('wxPaySelected', null);
+    wx.setStorageSync('couponPaySelected', null);
   }
 })

@@ -13,26 +13,32 @@ function payOrder(orderId) {
     util.request(api.PayPrepayId, {
       orderId: orderId
     }).then((res) => {
-      console.log(res)
+  
       if (res.errno === 0) {
-        const payParam = res.data;
-        wx.requestPayment({
-          'timeStamp': payParam.timeStamp,
-          'nonceStr': payParam.nonceStr,
-          'package': payParam.package,
-          'signType': payParam.signType,
-          'paySign': payParam.paySign,
-          'success': function (res) {
-            resolve(res);
-          },
-          'fail': function (res) {
-            reject(res);
-          },
-          'complete': function (res) {
-            reject(res);
-          }
-        });
-      } else {
+        if (res.data.balancePay || res.data.couponPay ){ ///账户余额支付
+           resolve(res);
+        } else if (res.data.wxpay){ //微信支付
+          const payParam = res.data.wxpayObj;
+          wx.requestPayment({
+            'timeStamp': payParam.timeStamp,
+            'nonceStr': payParam.nonceStr,
+            'package': payParam.package,
+            'signType': payParam.signType,
+            'paySign': payParam.paySign,
+            'success': function (res) {
+              resolve(res);
+            },
+            'fail': function (res) {
+              reject(res);
+            },
+            'complete': function (res) {
+              reject(res);
+            }
+          });
+        }else{ //支付失败
+          reject(res);
+        }
+      } else { //支付失败
         reject(res);
       }
     });

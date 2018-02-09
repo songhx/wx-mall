@@ -24,6 +24,54 @@ Page({
     hasCollectImage: "/static/images/icon_collect_checked.png",
     collectBackImage: "/static/images/icon_collect.png"
   },
+
+  onLoad: function (options) {
+    // 页面初始化 options为页面跳转所带来的参数
+    this.setData({
+      id: parseInt(options.id)
+      // id: 1181000
+    });
+    var that = this;
+    this.getGoodsInfo();
+    util.request(api.CartGoodsCount).then(function (res) {
+      if (res.errno === 0) {
+        that.setData({
+          cartGoodsCount: res.data.cartTotal.goodsCount
+        });
+
+      }
+    });
+  },
+  onReady: function () {
+    // 页面渲染完成
+
+  },
+  onShow: function () {
+    // 页面显示
+
+  },
+  onHide: function () {
+    // 页面隐藏
+
+  },
+  onUnload: function () {
+    // 页面关闭
+
+  },
+
+  //购买
+  buy : function(){
+    let that = this;
+    if (that.data.cartGoodsCount > 0){
+      wx.switchTab({
+        url: '/pages/cart/cart',
+      });
+    }else{
+      that.addToCart();
+    }
+  
+  },
+  ////获取货品信息
   getGoodsInfo: function () {
     let that = this;
     util.request(api.GoodsDetail, { id: that.data.id }).then(function (res) {
@@ -176,39 +224,7 @@ Page({
       }
     });
   },
-  onLoad: function (options) {
-    // 页面初始化 options为页面跳转所带来的参数
-    this.setData({
-      id: parseInt(options.id)
-      // id: 1181000
-    });
-    var that = this;
-    this.getGoodsInfo();
-    util.request(api.CartGoodsCount).then(function (res) {
-      if (res.errno === 0) {
-        that.setData({
-          cartGoodsCount: res.data.cartTotal.goodsCount
-        });
-
-      }
-    });
-  },
-  onReady: function () {
-    // 页面渲染完成
-
-  },
-  onShow: function () {
-    // 页面显示
-
-  },
-  onHide: function () {
-    // 页面隐藏
-
-  },
-  onUnload: function () {
-    // 页面关闭
-
-  },
+  
   switchAttrPop: function () {
     if (this.data.openAttr == false) {
       this.setData({

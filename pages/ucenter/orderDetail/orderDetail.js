@@ -46,7 +46,7 @@ Page({
   payOrder() {
     let that = this;
     util.request(api.PayPrepayId, {
-      orderId: that.data.orderId || 15
+      orderId: that.data.orderId
     }).then(function (res) {
       if (res.errno === 0) {
         const payParam = res.data;
@@ -66,6 +66,30 @@ Page({
       }
     });
 
+  },
+  //取消订单
+  cancelOrder :function(){
+    let that = this;
+    wx.showModal({
+      title: '',
+      content: '您确定要取消该订单吗？',
+      success: function (res) {
+        if (res.confirm) {
+          util.request(api.OrderCancel, {
+            orderId: that.data.orderId
+          }, 'POST').then(function (res) {
+            if (res.errno === 0) {
+              that.getOrderDetail();
+              wx.showToast({
+                title: "取消订单成功！"
+              })
+            } else {
+              util.showErrorToast(res.errmsg);
+            }
+          });
+        }
+      }
+    })
   },
   onReady: function () {
     // 页面渲染完成
