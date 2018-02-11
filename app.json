@@ -13,6 +13,7 @@
     "pages/ucenter/recharge/index",
     "pages/ucenter/withdraw/index",
     "pages/ucenter/feedback/feedback",
+    "pages/ucenter/questions/questions",
     "pages/ucenter/coupon/coupon",
     "pages/ucenter/coupon/sendCoupon",
     "pages/ucenter/collect/collect",
@@ -84,9 +85,6 @@
       }
     ]
   },
-  "networkTimeout": {
-    "request": 10000,
-    "downloadFile": 10000
-  },
+ 
   "debug": true
 }

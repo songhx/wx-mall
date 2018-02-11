@@ -104,7 +104,7 @@ page{
 
 .user-menu .icon.wallet{
     background: url(http://47.94.239.47/release/image/weixin/wallet.png)  no-repeat;
-    background-size: 51.803rpx;
+    background-size: 62.803rpx;
 }
 
 .user-menu .icon.gift{
