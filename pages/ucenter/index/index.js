@@ -5,6 +5,8 @@ var app = getApp();
 
 Page({
   data: {
+    inputMobile :false, 
+    mobile:'',
     userInfo: {}
   },
   onLoad: function (options) {
@@ -24,9 +26,9 @@ Page({
       app.globalData.userInfo = userInfo;
       app.globalData.token = token;
     }
-
     this.setData({
       userInfo: app.globalData.userInfo,
+      inputMobile: false,
     });
 
   },
@@ -37,6 +39,45 @@ Page({
   onUnload: function () {
     // 页面关闭
   },
+
+  //显示编辑手机号码
+  showBindMobile : function(){
+    var _this = this;
+    this.setData({
+      inputMobile: true,
+    })
+  },
+  //监听
+  listenerMobile: function (e) {
+    var _this = this;
+    this.setData({
+      mobile: e.detail.value,
+    })
+  },
+
+  //绑定
+  bind:function(){
+    var that = this;
+    if (that.data.mobile == ""){
+      util.showErrorToast('请输手机号');
+      return false;
+    }
+    util.request(api.BindMobile, {
+      mobile: that.data.mobile
+    }, 'POST').then(function (res) {
+      if (res.errno === 0) {
+        that.setData({
+          mobile: "",
+          inputMobile: false,
+        })
+        that.goLogin();
+
+      } else {
+        util.showErrorToast(res.errmsg);
+      }
+    });
+  },
+
   //拨打客服电话
   callCFPhone: function (event) {
     //console.log("debug: 客服电话-----" + event.currentTarget.dataset.phone);

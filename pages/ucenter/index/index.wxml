@@ -1,11 +1,24 @@
 <view class="container">
-  <view class="profile-info" bindtap="goLogin">
+  <view class="profile-info" wx:if="{{userInfo.userId==null}}" bindtap="goLogin">
     <image class="avatar" src="{{userInfo.avatarUrl}}"></image>
     <view class="info">
       <text class="name">{{userInfo.nickName}}</text>
       <text class="level">{{userInfo.userName}}</text>
     </view>
   </view>
+    <view class="profile-info" wx:if="{{userInfo.userId!=null}}" >
+    <image class="avatar" src="{{userInfo.avatarUrl}}"></image>
+    <view class="info">
+      <text class="name">{{userInfo.nickName}}</text>
+      <text class="level" wx:if="{{userInfo.mobile !=null && !inputMobile}}" bindtap='showBindMobile'>{{userInfo.mobile}}</text>
+      <view wx:if="{{inputMobile}}"  class='bindView'>
+             <input name="mobile" class="input" type="text" placeholder="输入手机号码"  bindinput='listenerMobile'/>
+             <button class="add-btn" bindtap='bind'>绑定</button>
+      </view>
+    
+    </view>
+  </view>
+
 
   <view class="user-menu">
     <view class="item">

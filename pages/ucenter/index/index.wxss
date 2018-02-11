@@ -46,7 +46,7 @@ page{
     height: 30rpx;
     line-height: 30rpx;
     margin-bottom: 10rpx;
-    color: #7f7f7f;
+    color: #333;
     font-size: 30rpx;
 }
 
@@ -104,7 +104,7 @@ page{
 
 .user-menu .icon.wallet{
     background: url(http://47.94.239.47/release/image/weixin/wallet.png)  no-repeat;
-    background-size: 62.803rpx;
+    background-size: 59.803rpx;
 }
 
 .user-menu .icon.gift{
@@ -190,4 +190,27 @@ page{
 .btn-enter {
   width: 18rpx;
   height: 27rpx;
+}
+.bindView{
+  display: flex;
+}
+.input{
+  height:50rpx;
+  width:69%;
+  color:#000;
+  line-height:50rpx;
+  font-size:24rpx;
+  background-color:#fff;
+  padding-left: 3px;
+}
+
+.add-btn{
+  height:51rpx;
+  border:none;
+  width:100rpx;
+  background:#b4282d;
+  border-radius:0;
+  line-height:51rpx;
+  color:#fff;
+  font-size:23rpx;
 }
